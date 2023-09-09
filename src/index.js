@@ -5,6 +5,38 @@ const productsContainer = document.getElementById("products-container");
 const toggle = document.getElementById("toggleMod");
 const toggleLabel = document.getElementById("toggleLabel");
 const productFragment = document.createDocumentFragment();
+let currentProduct = {}
+const carrito = []
+
+const modelDescription = document.getElementById('decriptionModal')
+const modalElement = document.getElementById('modalContainer');
+function openModal(){
+  // modalElement.classList.remove('invisible')
+  modalElement.classList.remove('hidden')
+  modelDescription.textContent=currentProduct.descripcion;
+  
+
+
+}
+function closeModal(){
+  // modalElement.classList.remove('visible');
+  modalElement.classList.add('hidden');
+
+}
+
+
+
+const addButton = document.getElementById('addItem')
+addButton.addEventListener('click',function(){
+  carrito.push(currentProduct)
+  console.log(carrito);
+  closeModal();
+})
+
+const buttonModal = document.getElementById('btnModal-close')
+buttonModal.addEventListener('click',function(){
+  closeModal();
+})
 
 toggle.addEventListener("change", function () {
   // Verifica si el toggle está marcado (activado)
@@ -92,7 +124,14 @@ function updateProducts() {
     const finalPrice =
       selectedOption === "Facturado" ? product.preciof : product.preciol;
     const productCard = document.createElement("div");
-    productCard.classList.add("product-card");
+    productCard.classList.add("product-card", "relative");
+    // add event to capture double click with content of product
+    productCard.addEventListener("dblclick", function () {
+      console.log("se hizo doble click", product);
+      currentProduct = product;
+      openModal();
+
+    });
 
     const discountedPrice = finalPrice * selectedDiscount;
     const priceLocal = discountedPrice * exchangeRate * 1.18;
@@ -114,7 +153,7 @@ function updateProducts() {
 
     if (toggleState === "Online") {
       productCard.innerHTML = `
-      <div class=" bg-white shadow-xl rounded-lg overflow-hidden transform hover:scale-105 transition duration-500 bg-opacity-50" id='${product.codigo}'>
+      <div class=" bg-white shadow-xl rounded-lg overflow-hidden transform hover:scale-[.98] transition duration-500 bg-opacity-50" id='${product.codigo}'>
         <div class="px-4 pb-3 pt-4 border-b border-gray-300 bg-white flex justify-between">
           <div class="text-xs uppercase font-bold text-gray-600 tracking-wide">COD: <span class="font-normal">${
             product.codigo
@@ -142,7 +181,7 @@ function updateProducts() {
   `;
     } else {
       productCard.innerHTML = `
-      <div class=" bg-white shadow-xl rounded-lg overflow-hidden transform hover:scale-105 transition duration-500 bg-opacity-50 relative " id='${product.codigo}'>
+      <div class=" bg-white shadow-xl rounded-lg overflow-hidden transform hover:scale-[.98] transition duration-500 bg-opacity-50 relative " id='${product.codigo}'>
         <div class="px-4 pb-3 pt-4 border-b border-gray-300 bg-white flex justify-between">
          <div class="text-xs uppercase font-bold text-gray-600 tracking-wide">COD: <span class="font-normal">${
            product.codigo
@@ -182,39 +221,6 @@ function updateProducts() {
   </div>
         `;
     }
-    const modelDescription = document.getElementById('decriptionModal')
-    function openModal(){
-      const modalElement = document.getElementById('modalContainer');
-      modalElement.classList.remove('invisible')
-      modalElement.classList.add('visible')
-      modelDescription.textContent=product.descripcion;
-      
-
-
-    }
-    function closeModal(){
-      const modalElement = document.getElementById('modalContainer');
-      modalElement.classList.remove('visible');
-      modalElement.classList.add('invisible');
-
-    }
-
-    productCard.addEventListener("dblclick", function () {
-      console.log("se hizo doble click");
-      openModal();
-
-    });
-
-
-    const addButton = document.getElementById('addItem')
-    addButton.addEventListener('click',function(){
-      closeModal();
-    })
-
-    const buttonModal = document.getElementById('btnModal-close')
-    buttonModal.addEventListener('click',function(){
-      closeModal();
-    })
 
     const containerBtn = document.createElement("div");
     const copyButton = document.createElement("button");
@@ -268,13 +274,7 @@ function updateProducts() {
 
     const viewStore = document.createElement("div");
     viewStore.classList.add(
-      "border-2",
-      "w-fit",
-      "rounded-xl",
-      "px-6",
-      "py-6",
-      "bg-white",
-      "text-sm"
+      "modalAlmacen"
     );
 
     const store = [
@@ -319,7 +319,7 @@ function updateProducts() {
         }
       });
 
-      viewStore.style.display = "block";
+      // viewStore.style.display = "block";
       isInfoVisible = true;
 
       setTimeout(function () {
