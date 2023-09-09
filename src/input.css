@@ -57,3 +57,6 @@ html {
 .modalAlmacen p:first-child {
   @apply col-span-2;
 }
+.subproduct-card {
+  @apply bg-white shadow-xl h-full rounded-lg flex flex-col justify-between overflow-hidden transform hover:scale-[.98] transition duration-500 bg-opacity-50;
+}

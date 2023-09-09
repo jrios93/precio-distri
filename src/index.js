@@ -153,7 +153,7 @@ function updateProducts() {
 
     if (toggleState === "Online") {
       productCard.innerHTML = `
-      <div class=" bg-white shadow-xl rounded-lg overflow-hidden transform hover:scale-[.98] transition duration-500 bg-opacity-50" id='${product.codigo}'>
+      <div class="subproduct-card" id='${product.codigo}'>
         <div class="px-4 pb-3 pt-4 border-b border-gray-300 bg-white flex justify-between">
           <div class="text-xs uppercase font-bold text-gray-600 tracking-wide">COD: <span class="font-normal">${
             product.codigo
@@ -181,7 +181,7 @@ function updateProducts() {
   `;
     } else {
       productCard.innerHTML = `
-      <div class=" bg-white shadow-xl rounded-lg overflow-hidden transform hover:scale-[.98] transition duration-500 bg-opacity-50 relative " id='${product.codigo}'>
+      <div class="subproduct-card relative " id='${product.codigo}'>
         <div class="px-4 pb-3 pt-4 border-b border-gray-300 bg-white flex justify-between">
          <div class="text-xs uppercase font-bold text-gray-600 tracking-wide">COD: <span class="font-normal">${
            product.codigo
@@ -232,6 +232,8 @@ function updateProducts() {
     copyButton.classList.add("btn-copy");
     copyButton.textContent = "Copiar";
     viewStock.textContent = "Ver Almacen";
+    const tempDiv = productCard.querySelector('div')
+    tempDiv.appendChild(containerBtn);
 
     copyButton.addEventListener("click", function () {
       const tempTextarea = document.createElement("textarea");
@@ -327,8 +329,6 @@ function updateProducts() {
       }, 10000);
       productCard.appendChild(viewStore);
     });
-
-    productCard.appendChild(containerBtn);
 
     productFragment.appendChild(productCard);
   });
