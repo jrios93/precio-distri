@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://rsms.me/inter/inter.css");
+html {
+  font-family: "Inter", sans-serif;
+}
+
+@supports (font-variation-settings: normal) {
+  html {
+    font-family: "Inter var", sans-serif;
+  }
+}
+.btn-copy,
+.btn-stock {
+  position: relative;
+  background-color: rgb(5, 93, 85);
+  width: 100%;
+  color: #fff;
+  padding: 0.25rem;
+  margin-right: 2px;
+  padding-left: 0.5rem /* 8px */;
+  padding-right: 0.5rem;
+  border-radius: 0.2rem;
+  text-transform: uppercase;
+  font-size: 0.75rem /* 12px */;
+  line-height: 1rem;
+  letter-spacing: 0.05em;
+  line-height: 2;
+}
+.btn-copy:hover,
+.btn-stock:hover {
+  background-color: rgb(9, 139, 129);
+}
+
+.ctn-btn {
+  display: flex;
+  justify-content: space-around;
+}
+
+.alert-copy {
+  position: absolute;
+  background-color: #333;
+  color: bisque;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  z-index: 5;
+  padding-left: 5px;
+  padding-right: 5px;
+  text-align: center;
+  font-size: 10px;
+}
