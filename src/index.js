@@ -5,6 +5,32 @@ const productsContainer = document.getElementById("products-container");
 const toggle = document.getElementById("toggleMod");
 const toggleLabel = document.getElementById("toggleLabel");
 const productFragment = document.createDocumentFragment();
+let currentProduct = {};
+const carrito = [];
+
+const modelDescription = document.getElementById("decriptionModal");
+const modalElement = document.getElementById("modalContainer");
+function openModal() {
+  // modalElement.classList.remove('invisible')
+  modalElement.classList.remove("hidden");
+  modelDescription.textContent = currentProduct.descripcion;
+}
+function closeModal() {
+  // modalElement.classList.remove('visible');
+  modalElement.classList.add("hidden");
+}
+
+const addButton = document.getElementById("addItem");
+addButton.addEventListener("click", function () {
+  carrito.push(currentProduct);
+  console.log(carrito);
+  closeModal();
+});
+
+const buttonModal = document.getElementById("btnModal-close");
+buttonModal.addEventListener("click", function () {
+  closeModal();
+});
 
 toggle.addEventListener("change", function () {
   // Verifica si el toggle está marcado (activado)
@@ -92,7 +118,12 @@ function updateProducts() {
     const finalPrice =
       selectedOption === "Facturado" ? product.preciof : product.preciol;
     const productCard = document.createElement("div");
-    productCard.classList.add("product-card");
+    productCard.classList.add("product-card", "relative");
+    // add event to capture double click with content of product
+    productCard.addEventListener("click", function () {
+      console.log("se hizo doble click", product);
+      currentProduct = product;
+    });
 
     const discountedPrice = finalPrice * selectedDiscount;
     const priceLocal = discountedPrice * exchangeRate * 1.18;
@@ -114,7 +145,7 @@ function updateProducts() {
 
     if (toggleState === "Online") {
       productCard.innerHTML = `
-      <div class=" bg-white shadow-xl rounded-lg overflow-hidden transform hover:scale-105 transition duration-500 bg-opacity-50" id='${product.codigo}'>
+      <div class="subproduct-card" id='${product.codigo}'>
         <div class="px-4 pb-3 pt-4 border-b border-gray-300 bg-white flex justify-between">
           <div class="text-xs uppercase font-bold text-gray-600 tracking-wide">COD: <span class="font-normal">${
             product.codigo
@@ -142,7 +173,7 @@ function updateProducts() {
   `;
     } else {
       productCard.innerHTML = `
-      <div class=" bg-white shadow-xl rounded-lg overflow-hidden transform hover:scale-105 transition duration-500 bg-opacity-50 relative " id='${product.codigo}'>
+      <div class="subproduct-card relative " id='${product.codigo}'>
         <div class="px-4 pb-3 pt-4 border-b border-gray-300 bg-white flex justify-between">
          <div class="text-xs uppercase font-bold text-gray-600 tracking-wide">COD: <span class="font-normal">${
            product.codigo
@@ -182,39 +213,6 @@ function updateProducts() {
   </div>
         `;
     }
-    const modelDescription = document.getElementById('decriptionModal')
-    function openModal(){
-      const modalElement = document.getElementById('modalContainer');
-      modalElement.classList.remove('invisible')
-      modalElement.classList.add('visible')
-      modelDescription.textContent=product.descripcion;
-      
-
-
-    }
-    function closeModal(){
-      const modalElement = document.getElementById('modalContainer');
-      modalElement.classList.remove('visible');
-      modalElement.classList.add('invisible');
-
-    }
-
-    productCard.addEventListener("dblclick", function () {
-      console.log("se hizo doble click");
-      openModal();
-
-    });
-
-
-    const addButton = document.getElementById('addItem')
-    addButton.addEventListener('click',function(){
-      closeModal();
-    })
-
-    const buttonModal = document.getElementById('btnModal-close')
-    buttonModal.addEventListener('click',function(){
-      closeModal();
-    })
 
     const containerBtn = document.createElement("div");
     const copyButton = document.createElement("button");
@@ -226,6 +224,8 @@ function updateProducts() {
     copyButton.classList.add("btn-copy");
     copyButton.textContent = "Copiar";
     viewStock.textContent = "Ver Almacen";
+    const tempDiv = productCard.querySelector("div");
+    tempDiv.appendChild(containerBtn);
 
     copyButton.addEventListener("click", function () {
       const tempTextarea = document.createElement("textarea");
@@ -267,15 +267,7 @@ function updateProducts() {
     });
 
     const viewStore = document.createElement("div");
-    viewStore.classList.add(
-      "border-2",
-      "w-fit",
-      "rounded-xl",
-      "px-6",
-      "py-6",
-      "bg-white",
-      "text-sm"
-    );
+    viewStore.classList.add("modalAlmacen");
 
     const store = [
       { nombre: "PRI", stock: product.principal },
@@ -290,9 +282,7 @@ function updateProducts() {
       { nombre: "T15", stock: product.cajaQuince },
     ];
 
-    let isInfoVisible = false;
-
-    viewStock.addEventListener("click", function () {
+    viewStock.addEventListener("mouseover", function () {
       viewStore.innerHTML = "";
       addP = document.createElement("p");
       addP.classList.add(
@@ -317,18 +307,51 @@ function updateProducts() {
           pElement.classList.add("text-sm");
           viewStore.appendChild(pElement);
         }
+        viewStore.style.display = "grid";
       });
 
-      viewStore.style.display = "block";
-      isInfoVisible = true;
-
-      setTimeout(function () {
+      viewStock.addEventListener("mouseout", function () {
         viewStore.style.display = "none";
-      }, 10000);
+      });
+
+      // Agrega eventos para dispositivos móviles
+      viewStock.addEventListener("touchstart", function (event) {
+        event.preventDefault(); // Evita el comportamiento predeterminado (por ejemplo, abrir un enlace)
+        viewStore.innerHTML = "";
+        addP = document.createElement("p");
+        addP.classList.add(
+          "font-bold",
+          "my-1",
+          "border-b",
+          "border-gray-300",
+          "text-gray-600"
+        );
+        addP.textContent = `Codigo:${product.codigo}`;
+        viewStore.append(addP);
+        store.forEach(function (almacen) {
+          if (almacen.stock !== 0) {
+            const pElement = document.createElement("p");
+            let unitarios = "";
+            if (almacen.stock == 1) {
+              unitarios = "und.";
+            } else {
+              unitarios = "unds.";
+            }
+            pElement.textContent = `${almacen.nombre} : ${almacen.stock} ${unitarios}`;
+            pElement.classList.add("text-sm");
+            viewStore.appendChild(pElement);
+          }
+          viewStore.style.display = "grid";
+        });
+      });
+
+      viewStock.addEventListener("touchend", function (event) {
+        event.preventDefault(); // Evita el comportamiento predeterminado (por ejemplo, abrir un enlace)
+        viewStore.style.display = "none";
+      });
+
       productCard.appendChild(viewStore);
     });
-
-    productCard.appendChild(containerBtn);
 
     productFragment.appendChild(productCard);
   });

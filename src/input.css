@@ -50,3 +50,13 @@ html {
   text-align: center;
   font-size: 10px;
 }
+
+.modalAlmacen {
+  @apply border-2 w-[18rem] rounded-xl p-4 bg-white text-sm absolute z-10 right-5 bottom-10 grid grid-cols-2 gap-2;
+}
+.modalAlmacen p:first-child {
+  @apply col-span-2;
+}
+.subproduct-card {
+  @apply bg-white shadow-xl h-full rounded-lg flex flex-col justify-between overflow-hidden transform hover:scale-[.98] transition duration-500 bg-opacity-50;
+}
