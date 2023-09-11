@@ -5,38 +5,32 @@ const productsContainer = document.getElementById("products-container");
 const toggle = document.getElementById("toggleMod");
 const toggleLabel = document.getElementById("toggleLabel");
 const productFragment = document.createDocumentFragment();
-let currentProduct = {}
-const carrito = []
+let currentProduct = {};
+const carrito = [];
 
-const modelDescription = document.getElementById('decriptionModal')
-const modalElement = document.getElementById('modalContainer');
-function openModal(){
+const modelDescription = document.getElementById("decriptionModal");
+const modalElement = document.getElementById("modalContainer");
+function openModal() {
   // modalElement.classList.remove('invisible')
-  modalElement.classList.remove('hidden')
-  modelDescription.textContent=currentProduct.descripcion;
-  
-
-
+  modalElement.classList.remove("hidden");
+  modelDescription.textContent = currentProduct.descripcion;
 }
-function closeModal(){
+function closeModal() {
   // modalElement.classList.remove('visible');
-  modalElement.classList.add('hidden');
-
+  modalElement.classList.add("hidden");
 }
 
-
-
-const addButton = document.getElementById('addItem')
-addButton.addEventListener('click',function(){
-  carrito.push(currentProduct)
+const addButton = document.getElementById("addItem");
+addButton.addEventListener("click", function () {
+  carrito.push(currentProduct);
   console.log(carrito);
   closeModal();
-})
+});
 
-const buttonModal = document.getElementById('btnModal-close')
-buttonModal.addEventListener('click',function(){
+const buttonModal = document.getElementById("btnModal-close");
+buttonModal.addEventListener("click", function () {
   closeModal();
-})
+});
 
 toggle.addEventListener("change", function () {
   // Verifica si el toggle está marcado (activado)
@@ -126,11 +120,9 @@ function updateProducts() {
     const productCard = document.createElement("div");
     productCard.classList.add("product-card", "relative");
     // add event to capture double click with content of product
-    productCard.addEventListener("dblclick", function () {
+    productCard.addEventListener("click", function () {
       console.log("se hizo doble click", product);
       currentProduct = product;
-      openModal();
-
     });
 
     const discountedPrice = finalPrice * selectedDiscount;
@@ -232,7 +224,7 @@ function updateProducts() {
     copyButton.classList.add("btn-copy");
     copyButton.textContent = "Copiar";
     viewStock.textContent = "Ver Almacen";
-    const tempDiv = productCard.querySelector('div')
+    const tempDiv = productCard.querySelector("div");
     tempDiv.appendChild(containerBtn);
 
     copyButton.addEventListener("click", function () {
@@ -275,9 +267,7 @@ function updateProducts() {
     });
 
     const viewStore = document.createElement("div");
-    viewStore.classList.add(
-      "modalAlmacen"
-    );
+    viewStore.classList.add("modalAlmacen");
 
     const store = [
       { nombre: "PRI", stock: product.principal },
@@ -292,9 +282,7 @@ function updateProducts() {
       { nombre: "T15", stock: product.cajaQuince },
     ];
 
-    let isInfoVisible = false;
-
-    viewStock.addEventListener("click", function () {
+    viewStock.addEventListener("mouseover", function () {
       viewStore.innerHTML = "";
       addP = document.createElement("p");
       addP.classList.add(
@@ -319,14 +307,49 @@ function updateProducts() {
           pElement.classList.add("text-sm");
           viewStore.appendChild(pElement);
         }
+        viewStore.style.display = "grid";
       });
 
-      // viewStore.style.display = "block";
-      isInfoVisible = true;
-
-      setTimeout(function () {
+      viewStock.addEventListener("mouseout", function () {
         viewStore.style.display = "none";
-      }, 10000);
+      });
+
+      // Agrega eventos para dispositivos móviles
+      viewStock.addEventListener("touchstart", function (event) {
+        event.preventDefault(); // Evita el comportamiento predeterminado (por ejemplo, abrir un enlace)
+        viewStore.innerHTML = "";
+        addP = document.createElement("p");
+        addP.classList.add(
+          "font-bold",
+          "my-1",
+          "border-b",
+          "border-gray-300",
+          "text-gray-600"
+        );
+        addP.textContent = `Codigo:${product.codigo}`;
+        viewStore.append(addP);
+        store.forEach(function (almacen) {
+          if (almacen.stock !== 0) {
+            const pElement = document.createElement("p");
+            let unitarios = "";
+            if (almacen.stock == 1) {
+              unitarios = "und.";
+            } else {
+              unitarios = "unds.";
+            }
+            pElement.textContent = `${almacen.nombre} : ${almacen.stock} ${unitarios}`;
+            pElement.classList.add("text-sm");
+            viewStore.appendChild(pElement);
+          }
+          viewStore.style.display = "grid";
+        });
+      });
+
+      viewStock.addEventListener("touchend", function (event) {
+        event.preventDefault(); // Evita el comportamiento predeterminado (por ejemplo, abrir un enlace)
+        viewStore.style.display = "none";
+      });
+
       productCard.appendChild(viewStore);
     });
 
