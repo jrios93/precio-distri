@@ -12,12 +12,12 @@ const modelDescription = document.getElementById("decriptionModal");
 const modalElement = document.getElementById("modalContainer");
 function openModal() {
   // modalElement.classList.remove('invisible')
-  modalElement.classList.remove("hidden");
+  modalElement.classList.remove("invisible");
   modelDescription.textContent = currentProduct.descripcion;
 }
 function closeModal() {
   // modalElement.classList.remove('visible');
-  modalElement.classList.add("hidden");
+  modalElement.classList.add("invisible");
 }
 
 const addButton = document.getElementById("addItem");
@@ -48,7 +48,7 @@ toggle.addEventListener("change", updateProducts);
 
 let products = [];
 
-fetch("archivo-12v3.json")
+fetch("archivo-12v4.json")
   .then((response) => response.json())
   .then((data) => {
     products = data;
@@ -120,9 +120,14 @@ function updateProducts() {
     const productCard = document.createElement("div");
     productCard.classList.add("product-card", "relative");
     // add event to capture double click with content of product
-    productCard.addEventListener("dblclick", function () {
-      console.log("se hizo doble click", product);
-      currentProduct = product;
+    productCard.addEventListener("click", function () {
+      clickCount++;
+      if (clickCount === tripleClickThreshold) {
+        console.log("se hizo doble click", product);
+        openModal();
+        currentProduct = product;
+        clickCount = 0;
+      }
     });
 
     const discountedPrice = finalPrice * selectedDiscount;
