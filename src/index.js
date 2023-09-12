@@ -120,7 +120,7 @@ function updateProducts() {
     const productCard = document.createElement("div");
     productCard.classList.add("product-card", "relative");
     // add event to capture double click with content of product
-    productCard.addEventListener("click", function () {
+    productCard.addEventListener("dblclick", function () {
       console.log("se hizo doble click", product);
       currentProduct = product;
     });
@@ -376,10 +376,3 @@ searchInput.addEventListener("keydown", function (event) {
 exchangeRateInput.addEventListener("input", updateProducts);
 discountSelect.addEventListener("change", updateProducts);
 searchInput.focus();
-
-function autoRefresh() {
-  location.reload();
-}
-
-const intervaloTiempo = 5 * 60 * 1000;
-setInterval(autoRefresh, intervaloTiempo);
