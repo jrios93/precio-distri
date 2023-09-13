@@ -73,7 +73,7 @@ function updateProducts() {
   const toggleState = toggleLabel.textContent;
 
   const filteredProducts = products.filter((product) => {
-    return searchKeyword.some((keyword) => {
+    return searchKeyword.every((keyword) => {
       return (
         product.descripcion.toLowerCase().includes(keyword) ||
         product.marca.toLowerCase().includes(keyword) ||
