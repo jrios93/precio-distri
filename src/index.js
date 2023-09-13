@@ -62,6 +62,7 @@ priceFacturadoRadio.addEventListener("change", updateProducts);
 const priceLibreRadio = document.getElementById("price-libre-radio");
 priceLibreRadio.addEventListener("change", updateProducts);
 
+
 function updateProducts() {
   const searchKeyword = searchInput.value.toLowerCase().split(" ");
   const exchangeRate = parseFloat(exchangeRateInput.value);
@@ -72,11 +73,12 @@ function updateProducts() {
   const toggleState = toggleLabel.textContent;
 
   const filteredProducts = products.filter((product) => {
-    return searchKeyword.every((keyword) => {
+    return searchKeyword.some((keyword) => {
       return (
         product.descripcion.toLowerCase().includes(keyword) ||
         product.marca.toLowerCase().includes(keyword) ||
-        product.codigo.toString().includes(keyword)
+        product.codigo.toString().includes(keyword) ||
+        product.subcategoria.toLowerCase().includes(keyword)
       );
     });
   });
