@@ -48,7 +48,7 @@ toggle.addEventListener("change", updateProducts);
 
 let products = [];
 
-fetch("archivo-12v4.json")
+fetch("archivo-13.json")
   .then((response) => response.json())
   .then((data) => {
     products = data;
