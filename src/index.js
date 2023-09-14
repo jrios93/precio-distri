@@ -195,10 +195,10 @@ function updateProducts() {
     } else {
       productCard.innerHTML = `
       <div class="subproduct-card relative " id='${product.codigo}'>
-        <div class="px-4 pb-3 pt-4 border-b border-gray-300 bg-white dark:bg-slate-700 flex justify-between">
-         <div class="text-xs uppercase font-bold text-gray-600 tracking-wide">COD: <span class="font-normal">${product.codigo}</span>
+        <div class="px-4 pb-3 pt-4 border-b border-gray-300 bg-white dark:bg-slate-700   flex justify-between">
+         <div class="text-xs uppercase font-bold text-gray-600 tracking-wide dark:text-white ">COD: <span class="font-normal">${product.codigo}</span>
          </div>
-          <div class="text-xs uppercase font-bold text-gray-600 tracking-wide ">Descuento: <span class="font-normal text-sm text-white bg-orange-500">${viewDiscount}</span></div>
+          <div class="text-xs uppercase font-bold text-gray-600 tracking-wide dark:text-white ">Descuento: <span class="font-normal text-sm text-white bg-orange-500 dark:bg-red-600">${viewDiscount}</span></div>
       </div>
       <div class="p-4 text-gray-700 flex justify-between items-start">
         <div>
@@ -214,7 +214,7 @@ function updateProducts() {
         </div>
 
         <div class="flex items-center">
-					<p><span class="lg:text-xs pr-1">Tc:</span><span class="text-gray-900 font-bold lg:text-xs">${exchangeRate}</span></p>
+					<p><span class="lg:text-xs pr-1 dark:text-slate-900">Tc:</span><span class="text-gray-900 font-bold lg:text-xs">${exchangeRate}</span></p>
         </div>
   
 
@@ -234,8 +234,8 @@ function updateProducts() {
     containerBtn.appendChild(copyButton);
     containerBtn.appendChild(viewStock);
     containerBtn.classList.add("ctn-btn");
-    viewStock.classList.add("btn-stock");
-    copyButton.classList.add("btn-copy");
+    viewStock.classList.add("btn-stock","dark:bg-sky-700");
+    copyButton.classList.add("btn-copy","dark:bg-sky-700");
     copyButton.textContent = "Copiar";
     viewStock.textContent = "Ver Almacen";
     const tempDiv = productCard.querySelector("div");
