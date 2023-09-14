@@ -117,8 +117,11 @@ function updateProducts() {
   productFragment.innerHTML = "";
 
   filteredProducts.forEach((product) => {
-    const finalPrice =
-      selectedOption === "Facturado" ? product.preciof : product.preciol;
+    let priceLocal;
+    let discountedPrice;
+    let priceFifi;
+    // const finalPrice =
+    //   selectedOption === "Facturado" ? product.preciof : product.preciol;
     const productCard = document.createElement("div");
     productCard.classList.add("product-card", "relative");
     // add event to capture double click with content of product
@@ -131,9 +134,22 @@ function updateProducts() {
         clickCount = 0;
       }
     });
+    
+    if(selectedOption === "Facturado"){
 
-    const discountedPrice = finalPrice * selectedDiscount;
-    const priceLocal = discountedPrice * exchangeRate * 1.18;
+      discountedPrice = (product.preciof * selectedDiscount).toFixed(2);
+      priceFifi=`${discountedPrice.toString()}+igv`
+      priceLocal = (discountedPrice * exchangeRate * 1.18).toFixed(2).toString()+'(inc.igv)';
+
+    }else if(selectedOption === "Libre") {
+      discountedPrice = ((product.preciol* selectedDiscount)*1.18).toFixed(2);
+      priceFifi=`${discountedPrice.toString()}`
+      priceLocal = (discountedPrice * exchangeRate).toFixed(2);
+
+    }
+
+  
+    
 
     let viewDiscount = "";
 
@@ -200,22 +216,16 @@ function updateProducts() {
       </div>
       <div class=" justify-between items-center p-4 border-t border-gray-300 text-gray-600">
         <div class="flex items-center">
-          <p><span class="lg:text-xs pr-1">${abreSelectOption} Dolares:</span><span class="text-gray-900 font-bold lg:text-xs">$${discountedPrice.toFixed(
-        2
-      )}+igv</span></p>
+          <p><span class="lg:text-xs pr-1">${abreSelectOption} Dolares:</span><span class="text-gray-900 font-bold lg:text-xs">$${priceFifi}</span></p>
         </div>
-        <div class="flex items-center">
-          <p><span class="lg:text-xs pr-1">Precio incluido:</span><span class="text-gray-900 font-bold lg:text-xs">$${(discountedPrice*1.18).toFixed(2)}</span></p>
-        </div>
+
         <div class="flex items-center">
 					<p><span class="lg:text-xs pr-1">Tc:</span><span class="text-gray-900 font-bold lg:text-xs">${exchangeRate}</span></p>
         </div>
   
 
         <div class="flex items-center">
-						<p><span class="lg:text-xs pr-1">${abreSelectOption} Soles:</span><span class="text-gray-900 font-bold lg:text-xs">S/${priceLocal.toFixed(
-        2
-      )}(inc.igv)</span></p>
+						<p><span class="lg:text-xs pr-1">${abreSelectOption} Soles:</span><span class="text-gray-900 font-bold lg:text-xs">S/${priceLocal}</span></p>
         </div>
       
       </div>
@@ -223,6 +233,7 @@ function updateProducts() {
   </div>
         `;
     }
+
 
     const containerBtn = document.createElement("div");
     const copyButton = document.createElement("button");
