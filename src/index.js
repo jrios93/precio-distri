@@ -205,6 +205,9 @@ function updateProducts() {
       )}+igv</span></p>
         </div>
         <div class="flex items-center">
+          <p><span class="lg:text-xs pr-1">Precio incluido:</span><span class="text-gray-900 font-bold lg:text-xs">$${(discountedPrice*1.18).toFixed(2)}</span></p>
+        </div>
+        <div class="flex items-center">
 					<p><span class="lg:text-xs pr-1">Tc:</span><span class="text-gray-900 font-bold lg:text-xs">${exchangeRate}</span></p>
         </div>
   
@@ -250,7 +253,7 @@ function updateProducts() {
           product.stock
         }\n--------------------\n${abreSelectOption} Dolares: *$${discountedPrice.toFixed(
           2
-        )}+igv*\nTc:${exchangeRate}\n${abreSelectOption} Soles: *S/${priceLocal.toFixed(
+        )}+igv*\nTc: ${exchangeRate}\n${abreSelectOption} Soles: *S/${priceLocal.toFixed(
           2
         )}(inc.igv)*\n`;
       }
