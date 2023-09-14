@@ -167,11 +167,11 @@ function updateProducts() {
 
       productCard.innerHTML = `
       <div class="subproduct-card" id='${product.codigo}'>
-        <div class="px-4 pb-3 pt-4 border-b border-gray-300 bg-white flex justify-between">
-          <div class="text-xs uppercase font-bold text-gray-600 tracking-wide">COD: <span class="font-normal">${
+        <div class="px-4 pb-3 pt-4 border-b border-gray-300 bg-white dark:bg-slate-700  flex justify-between">
+          <div class="text-xs uppercase font-bold text-gray-600 dark:text-white tracking-wide">COD: <span class="font-normal">${
             product.codigo
           }</span></div>
-          <div class="text-xs uppercase font-bold text-gray-600 tracking-wide ">Descuento: <span class="font-normal text-sm text-white bg-orange-500">${viewDiscount}</span></div>
+          <div class="text-xs uppercase font-bold text-gray-600 dark:text-white tracking-wide ">Descuento: <span class="font-normal text-sm text-white bg-orange-500 dark:bg-red-600">${viewDiscount}</span></div>
           </div>
         <div class="p-4 text-gray-700 flex justify-between items-start">
           <div>
@@ -234,8 +234,8 @@ function updateProducts() {
     containerBtn.appendChild(copyButton);
     containerBtn.appendChild(viewStock);
     containerBtn.classList.add("ctn-btn");
-    viewStock.classList.add("btn-stock","dark:bg-sky-700");
-    copyButton.classList.add("btn-copy","dark:bg-sky-700");
+    viewStock.classList.add("btn-stock","dark:bg-indigo-800");
+    copyButton.classList.add("btn-copy","dark:bg-indigo-800");
     copyButton.textContent = "Copiar";
     viewStock.textContent = "Ver Almacen";
     const tempDiv = productCard.querySelector("div");
