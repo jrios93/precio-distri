@@ -162,7 +162,7 @@ function updateProducts() {
     const abreSelectOption = selectedOption === "Facturado" ? "Fact." : "Libre";
 
     if (toggleState === "Online") {
-      discountedPrice = (product.preciol * selectedDiscount * 1.18).toFixed(2);
+      discountedPrice = (product.preciof * selectedDiscount * 1.18).toFixed(2);
       priceLocal = (discountedPrice * exchangeRate).toFixed(2);
 
       productCard.innerHTML = `
@@ -195,7 +195,7 @@ function updateProducts() {
     } else {
       productCard.innerHTML = `
       <div class="subproduct-card relative " id='${product.codigo}'>
-        <div class="px-4 pb-3 pt-4 border-b border-gray-300 bg-white flex justify-between">
+        <div class="px-4 pb-3 pt-4 border-b border-gray-300 bg-white dark:bg-slate-700 flex justify-between">
          <div class="text-xs uppercase font-bold text-gray-600 tracking-wide">COD: <span class="font-normal">${product.codigo}</span>
          </div>
           <div class="text-xs uppercase font-bold text-gray-600 tracking-wide ">Descuento: <span class="font-normal text-sm text-white bg-orange-500">${viewDiscount}</span></div>
@@ -386,3 +386,19 @@ searchInput.addEventListener("keydown", function (event) {
 exchangeRateInput.addEventListener("input", updateProducts);
 discountSelect.addEventListener("change", updateProducts);
 searchInput.focus();
+
+// On page load or when changing themes, best to add inline in `head` to avoid FOUC
+if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+  document.documentElement.classList.add('dark')
+} else {
+  document.documentElement.classList.remove('dark')
+}
+
+// Whenever the user explicitly chooses light mode
+localStorage.theme = 'light'
+
+// Whenever the user explicitly chooses dark mode
+localStorage.theme = 'dark'
+
+// Whenever the user explicitly chooses to respect the OS preference
+localStorage.removeItem('theme')

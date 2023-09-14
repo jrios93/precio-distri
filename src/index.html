@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="dark">
 <head>
     <title>Buscador de Productos</title>
     <link rel="stylesheet" type="text/css" href="./output.css">
@@ -7,11 +7,13 @@
     <link href="https://rsms.me/inter/inter.css" rel="stylesheet">
 </head>
 
-<body class=" grid place-items-center bg-gray-100">
+
+
+<body class=" grid place-items-center bg-gray-100 dark:bg-slate-800">
   <label class="flex justify-start relative items-center mr-5 cursor-pointer my-3">
             <input type="checkbox" value="" class="sr-only peer" id ='toggleMod'>
             <div class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-400 peer-focus:ring-4 peer-focus:ring-teal-300 dark:peer-focus:ring-teal-500 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute lg:after:top-8  sm:after:top-11  after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-teal-600 peer-checked:bg-teal-600"></div>
-            <span class="ml-3 text-sm f text-gray-900 dark:text-stone-900 font-bold uppercase text-center my-6 sm:text-6xl lg:text-4xl"  id="toggleLabel">Distribución</span>
+            <span class="ml-3 text-sm f text-gray-900 dark:text-white font-bold uppercase text-center my-6 sm:text-6xl lg:text-4xl"  id="toggleLabel">Distribución</span>
           </label>
     <div class="relative px-5">
         <input type="text" id="search-input" placeholder="Buscar productos..." class="w-full max-w-[400px] h-16 rounded-md border-2 border-stone-700 my-6 px-6 shadow-sm text-2xl">
@@ -20,10 +22,10 @@
         <div class="search-container grid sm:grid-cols-2 md:grid-cols-4 gap-2 mx-6 items-center">
 
             <label class="">
-                <span>Tc:</span>  
-                <input type="text" id="exchange-rate" value="3.706" class="lg:w-[89px] border-2 rounded-md border-stone-700 px-3 md:w-[86px] sm:w-[80px] sm:text-x lg:text-sm md:text-sm mx-3 my-3">
+                <span class="dark:text-white">Tc:</span>  
+                <input type="text" id="exchange-rate" value="3.706" class="lg:w-[89px] border-2 rounded-md border-stone-700 px-3 md:w-[86px] sm:w-[80px] sm:text-x lg:text-sm md:text-sm mx-3 my-3 ">
             </label>
-            <select id="discount-select" class="">
+            <select id="discount-select" class="rounded-md px-2">
                 <option value="1">Sin descuento</option>
                 <option value="0.99">1% de descuento</option>
                 <option value="0.98">2% de descuento</option>
@@ -31,17 +33,17 @@
                 <option value="0.96">4% de descuento</option>
             </select>
 
-              <label class="" for="price-facturado-radio">
+              <label class="dark:text-white" for="price-facturado-radio">
                 <input class="mx-3"  type="radio" name="price-option" id="price-facturado-radio" value="Facturado" checked>Facturado
               </label>
-              <label class="" for="price-libre-radio">
+              <label class="dark:text-white" for="price-libre-radio">
                 <input class="mx-3" type="radio" name="price-option" id="price-libre-radio" value="Libre">Libre
               </label>
         </div>
        
 </div>
 <div class="flex justify-center my-6">
-  <button class="group relative w-40 h-10 overflow-hidden rounded-md bg-teal-600 text-xl font-bold text-white border-stone-900 border-2" id="cotice" >Cotizador 
+  <button class="group relative w-40 h-10 overflow-hidden rounded-md bg-teal-600 dark:bg-sky-700 text-xl font-bold text-white border-stone-900 dark:border-sky-600 border-2" id="cotice" >Cotizador 
     
     <div class="absolute inset-0 h-full w-full scale-0 rounded-md transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
 </button>
