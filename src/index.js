@@ -62,7 +62,6 @@ priceFacturadoRadio.addEventListener("change", updateProducts);
 const priceLibreRadio = document.getElementById("price-libre-radio");
 priceLibreRadio.addEventListener("change", updateProducts);
 
-
 function updateProducts() {
   const searchKeyword = searchInput.value.toLowerCase().split(" ");
   const exchangeRate = parseFloat(exchangeRateInput.value);
@@ -134,22 +133,18 @@ function updateProducts() {
         clickCount = 0;
       }
     });
-    
-    if(selectedOption === "Facturado"){
 
+    if (selectedOption === "Facturado") {
       discountedPrice = (product.preciof * selectedDiscount).toFixed(2);
-      priceFifi=`${discountedPrice.toString()}+igv`
-      priceLocal = (discountedPrice * exchangeRate * 1.18).toFixed(2).toString()+'(inc.igv)';
-
-    }else if(selectedOption === "Libre") {
-      discountedPrice = ((product.preciol* selectedDiscount)*1.18).toFixed(2);
-      priceFifi=`${discountedPrice.toString()}`
+      priceFifi = `${discountedPrice.toString()}+igv`;
+      priceLocal =
+        (discountedPrice * exchangeRate * 1.18).toFixed(2).toString() +
+        "(inc.igv)";
+    } else if (selectedOption === "Libre") {
+      discountedPrice = (product.preciol * selectedDiscount * 1.18).toFixed(2);
+      priceFifi = `${discountedPrice.toString()}`;
       priceLocal = (discountedPrice * exchangeRate).toFixed(2);
-
     }
-
-  
-    
 
     let viewDiscount = "";
 
@@ -167,9 +162,8 @@ function updateProducts() {
     const abreSelectOption = selectedOption === "Facturado" ? "Fact." : "Libre";
 
     if (toggleState === "Online") {
-      discountedPrice = ((product.preciol* selectedDiscount)*1.18).toFixed(2);
+      discountedPrice = (product.preciol * selectedDiscount * 1.18).toFixed(2);
       priceLocal = (discountedPrice * exchangeRate).toFixed(2);
-
 
       productCard.innerHTML = `
       <div class="subproduct-card" id='${product.codigo}'>
@@ -202,17 +196,13 @@ function updateProducts() {
       productCard.innerHTML = `
       <div class="subproduct-card relative " id='${product.codigo}'>
         <div class="px-4 pb-3 pt-4 border-b border-gray-300 bg-white flex justify-between">
-         <div class="text-xs uppercase font-bold text-gray-600 tracking-wide">COD: <span class="font-normal">${
-           product.codigo
-         }</span>
+         <div class="text-xs uppercase font-bold text-gray-600 tracking-wide">COD: <span class="font-normal">${product.codigo}</span>
          </div>
           <div class="text-xs uppercase font-bold text-gray-600 tracking-wide ">Descuento: <span class="font-normal text-sm text-white bg-orange-500">${viewDiscount}</span></div>
       </div>
       <div class="p-4 text-gray-700 flex justify-between items-start">
         <div>
-          <p class="text-lg text-stone-900 leading-none my-1 font-bold">${
-            product.descripcion
-          }</p>
+          <p class="text-lg text-stone-900 leading-none my-1 font-bold">${product.descripcion}</p>
           <p class="text-sm w-56 ">Stock: ${product.stock} uds.</p>
         </div>
         
@@ -238,7 +228,6 @@ function updateProducts() {
         `;
     }
 
-
     const containerBtn = document.createElement("div");
     const copyButton = document.createElement("button");
     const viewStock = document.createElement("button");
@@ -256,21 +245,17 @@ function updateProducts() {
       const tempTextarea = document.createElement("textarea");
 
       if (toggleState === "Online") {
+        discountedPrice = (product.preciol * selectedDiscount * 1.18).toFixed(
+          2
+        );
+        priceLocal = (discountedPrice * exchangeRate).toFixed(2);
         tempTextarea.value = `Cod:${product.codigo}\n------------------\n${
           product.descripcion
-        }\nStock:${product.stock}\n------------------\nPrecio Online:S/${(
+        }\nStock:${product.stock}\n------------------\nPrecio Online: S/${(
           priceLocal * 1.1
         ).toFixed(2)}`;
       } else {
-        tempTextarea.value = `Mod: ${selectedOption}\nCod: ${
-          product.codigo
-        }\n------------------\n${product.descripcion}\nStock: ${
-          product.stock
-        }\n--------------------\n${abreSelectOption} Dolares: *$${discountedPrice.toFixed(
-          2
-        )}+igv*\nTc: ${exchangeRate}\n${abreSelectOption} Soles: *S/${priceLocal.toFixed(
-          2
-        )}(inc.igv)*\n`;
+        tempTextarea.value = `Mod: ${selectedOption}\nCod: ${product.codigo}\n------------------\n${product.descripcion}\nStock: ${product.stock}\n--------------------\n${abreSelectOption} Dolares: *$${priceFifi}*\nTc: ${exchangeRate}\n${abreSelectOption} Soles: *S/${priceLocal}*\n`;
       }
       const alertCopy = document.createElement("div");
       alertCopy.classList.add("alert-copy");
