@@ -167,6 +167,10 @@ function updateProducts() {
     const abreSelectOption = selectedOption === "Facturado" ? "Fact." : "Libre";
 
     if (toggleState === "Online") {
+      discountedPrice = ((product.preciol* selectedDiscount)*1.18).toFixed(2);
+      priceLocal = (discountedPrice * exchangeRate).toFixed(2);
+
+
       productCard.innerHTML = `
       <div class="subproduct-card" id='${product.codigo}'>
         <div class="px-4 pb-3 pt-4 border-b border-gray-300 bg-white flex justify-between">
