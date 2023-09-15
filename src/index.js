@@ -370,12 +370,19 @@ function updateProducts() {
   productsContainer.appendChild(productFragment);
 }
 
-let debounceTimeout;
+let debounceTimer;
 
-searchInput.addEventListener("input", function () {
-  clearTimeout(debounceTimeout);
-  debounceTimeout = setTimeout(updateProducts, 300);
-});
+
+function debounceSearch() {
+  
+  clearTimeout(debounceTimer);
+
+  
+  debounceTimer = setTimeout(updateProducts, 200); 
+}
+
+// Escucha el evento de entrada en el campo de búsqueda
+searchInput.addEventListener("input", debounceSearch);
 
 searchInput.addEventListener("keydown", function (event) {
   if (event.key === "Escape") {
