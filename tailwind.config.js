@@ -13,7 +13,13 @@ module.exports = {
       lg: "1440px",
       // => @media (min-width: 1440px) { ... }
     },
-    extend: {},
+    
+    extend: {colors:{
+      'silverb':'#0C1317',
+      'backcards':'#303642',
+      'btncolor':'#5734ee',
+      'textdark':'#93969c',
+    },},
   },
   plugins: [],
 };

@@ -48,7 +48,7 @@ toggle.addEventListener("change", updateProducts);
 
 let products = [];
 
-fetch("archivo-14.json")
+fetch("archivo-14v2.json")
   .then((response) => response.json())
   .then((data) => {
     products = data;
@@ -166,25 +166,25 @@ function updateProducts() {
       priceLocal = (discountedPrice * exchangeRate).toFixed(2);
 
       productCard.innerHTML = `
-      <div class="subproduct-card" id='${product.codigo}'>
+      <div class="subproduct-card dark:bg-backcards" id='${product.codigo}'>
         <div class="px-4 pb-3 pt-4 border-b border-gray-300 bg-white dark:bg-slate-700  flex justify-between">
           <div class="text-xs uppercase font-bold text-gray-600 dark:text-white tracking-wide">COD: <span class="font-normal">${
             product.codigo
           }</span></div>
-          <div class="text-xs uppercase font-bold text-gray-600 dark:text-white tracking-wide ">Descuento: <span class="font-normal text-sm text-white bg-orange-500 dark:bg-red-600">${viewDiscount}</span></div>
+          <div class="text-xs uppercase font-bold text-gray-600 dark:text-white tracking-wide ">Descuento: <span class="font-normal text-sm text-white bg-orange-500 dark:bg-blue-600">${viewDiscount}</span></div>
           </div>
         <div class="p-4 text-gray-700 flex justify-between items-start">
           <div>
-            <p class="text-lg text-stone-900 leading-none my-1 font-bold">${
+            <p class="text-lg text-stone-900 leading-none my-1 font-bold dark:text-white">${
               product.descripcion
             }</p>
-            <p class="text-sm w-56">Stock: ${product.stock} uds.</p>
+            <p class="text-sm w-56 dark:text-textdark">Stock: ${product.stock} uds.</p>
           </div>
 
         </div>
         <div class="flex justify-between items-center p-4 border-t border-gray-300 text-gray-600">
           <div class="flex items-center">
-						<p><span class="text-sm pr-1">Precio soles (inc.igv):</span> <span class="text-gray-900 font-bold"> S/${(
+						<p><span class="text-sm pr-1 dark:text-textdark">Precio soles (inc.igv):</span> <span class="text-gray-900 font-bold dark:text-white"> S/${(
               priceLocal * 1.1
             ).toFixed(2)}</span></p>
           </div>
@@ -194,32 +194,32 @@ function updateProducts() {
   `;
     } else {
       productCard.innerHTML = `
-      <div class="subproduct-card relative " id='${product.codigo}'>
+      <div class="subproduct-card relative dark:bg-backcards " id='${product.codigo}'>
         <div class="px-4 pb-3 pt-4 border-b border-gray-300 bg-white dark:bg-slate-700   flex justify-between">
          <div class="text-xs uppercase font-bold text-gray-600 tracking-wide dark:text-white ">COD: <span class="font-normal">${product.codigo}</span>
          </div>
-          <div class="text-xs uppercase font-bold text-gray-600 tracking-wide dark:text-white ">Descuento: <span class="font-normal text-sm text-white bg-orange-500 dark:bg-red-600">${viewDiscount}</span></div>
-      </div>
+          <div class="text-xs uppercase font-bold text-gray-600 tracking-wide dark:text-white ">Descuento: <span class="font-normal text-sm text-white bg-orange-500 dark:bg-blue-600">${viewDiscount}</span></div>
+      </div>  
       <div class="p-4 text-gray-700 flex justify-between items-start">
         <div>
-          <p class="text-lg text-stone-900 leading-none my-1 font-bold">${product.descripcion}</p>
-          <p class="text-sm w-56 ">Stock: ${product.stock} uds.</p>
+          <p class="text-lg text-stone-900 leading-none my-1 font-bold dark:text-white ">${product.descripcion}</p>
+          <p class="text-sm w-56  dark:text-textdark">Stock: ${product.stock} uds.</p>
         </div>
         
 
       </div>
       <div class=" justify-between items-center p-4 border-t border-gray-300 text-gray-600">
         <div class="flex items-center">
-          <p><span class="lg:text-xs pr-1">${abreSelectOption} Dolares:</span><span class="text-gray-900 font-bold lg:text-xs">$${priceFifi}</span></p>
+          <p><span class="lg:text-xs pr-1 dark:text-textdark">${abreSelectOption} Dolares:</span><span class="text-gray-900 font-bold lg:text-xs dark:text-white">$${priceFifi}</span></p>
         </div>
 
         <div class="flex items-center">
-					<p><span class="lg:text-xs pr-1 dark:text-slate-900">Tc:</span><span class="text-gray-900 font-bold lg:text-xs">${exchangeRate}</span></p>
+					<p><span class="lg:text-xs pr- dark:text-textdark">Tc:</span><span class="text-gray-900 font-bold lg:text-xs dark:text-white">${exchangeRate}</span></p>
         </div>
   
 
         <div class="flex items-center">
-						<p><span class="lg:text-xs pr-1">${abreSelectOption} Soles:</span><span class="text-gray-900 font-bold lg:text-xs">S/${priceLocal}</span></p>
+						<p><span class="lg:text-xs pr-1 dark:text-textdark">${abreSelectOption} Soles:</span><span class="text-gray-900 font-bold lg:text-xs dark:text-white">S/${priceLocal}</span></p>
         </div>
       
       </div>
@@ -234,8 +234,8 @@ function updateProducts() {
     containerBtn.appendChild(copyButton);
     containerBtn.appendChild(viewStock);
     containerBtn.classList.add("ctn-btn");
-    viewStock.classList.add("btn-stock","dark:bg-indigo-800");
-    copyButton.classList.add("btn-copy","dark:bg-indigo-800");
+    viewStock.classList.add("btn-stock","dark:bg-btncolor");
+    copyButton.classList.add("btn-copy","dark:bg-btncolor");
     copyButton.textContent = "Copiar";
     viewStock.textContent = "Ver Almacen";
     const tempDiv = productCard.querySelector("div");
