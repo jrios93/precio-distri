@@ -78,7 +78,7 @@ function updateProducts() {
         product.marca.toLowerCase().includes(keyword) ||
         product.codigo.toString().includes(keyword) ||
         product.subcategoria.toLowerCase().includes(keyword) ||
-        product.nparte.toString().includes(keyword)
+        product.nparte.toString().toLowerCase().includes(keyword)
       );
     });
   });
