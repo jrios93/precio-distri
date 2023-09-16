@@ -48,7 +48,7 @@ toggle.addEventListener("change", updateProducts);
 
 let products = [];
 
-fetch("archivo-15.json")
+fetch("archivo-15v2.json")
   .then((response) => response.json())
   .then((data) => {
     products = data;
@@ -78,7 +78,7 @@ function updateProducts() {
         product.marca.toLowerCase().includes(keyword) ||
         product.codigo.toString().includes(keyword) ||
         product.subcategoria.toLowerCase().includes(keyword) ||
-        product.nparte.toString().toLowerCase().includes(keyword)
+        product.nparte.toString().toLowerCase().includes( keyword)
       );
     });
   });
