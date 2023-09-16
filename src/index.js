@@ -177,7 +177,7 @@ function updateProducts() {
         <div class="p-4 text-gray-700 flex justify-between items-start">
           <div>
             <p class="text-lg text-stone-900 leading-none my-1 font-bold dark:text-white">${
-              product.descripcion
+              product.descripcion.trim()
             }</p>
             <p class="text-sm w-56 dark:text-textdark">Stock: ${product.stock} uds.</p>
           </div>
@@ -203,7 +203,7 @@ function updateProducts() {
       </div>  
       <div class="p-4 text-gray-700 flex justify-between items-start">
         <div>
-          <p class="text-lg text-stone-900 leading-none my-1 font-bold dark:text-white ">${product.descripcion}</p>
+          <p class="text-lg text-stone-900 leading-none my-1 font-bold dark:text-white ">${product.descripcion.trim()}</p>
           <p class="text-sm w-56  dark:text-textdark">Stock: ${product.stock} uds.</p>
         </div>
         
