@@ -250,13 +250,11 @@ function updateProducts() {
           2
         );
         priceLocal = (discountedPrice * exchangeRate).toFixed(2);
-        tempTextarea.value = `Cod:${product.codigo}\n------------------\n${
-          product.descripcion
-        }\nStock:${product.stock}\n------------------\nPrecio Online: S/${(
+        tempTextarea.value = `Cod: ${product.codigo}\n------------------\n_${product.descripcion.trim()}_\nStock: ${product.stock}\n------------------\nPrecio Online: *S/${(
           priceLocal * 1.1
-        ).toFixed(2)}`;
+        ).toFixed(2)}*`;
       } else {
-        tempTextarea.value = `Mod: ${selectedOption}\nCod: ${product.codigo}\n------------------\n${product.descripcion}\nStock: ${product.stock}\n--------------------\n${abreSelectOption} Dolares: *$${priceFifi}*\nTc: ${exchangeRate}\n${abreSelectOption} Soles: *S/${priceLocal}*\n`;
+        tempTextarea.value = `Mod: ${selectedOption}\nCod: ${product.codigo}\n------------------\n_${product.descripcion.trim()}_\nStock: ${product.stock}\n--------------------\n${abreSelectOption} Dolares: *$${priceFifi}*\nTc: ${exchangeRate}\n${abreSelectOption} Soles: *S/${priceLocal}*\n`;
       }
       const alertCopy = document.createElement("div");
       alertCopy.classList.add("alert-copy");
